@@ -24,6 +24,6 @@
     <PackageReference Include="Serilog.Sinks.PostgreSQL" Version="2.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BoscoAFH.Common\BoscoAFH.Common.csproj" />
+    <ProjectReference Include="..\BoscoAFH.CommonService\BoscoAFH.CommonService.csproj" />
   </ItemGroup>
 </Project>
