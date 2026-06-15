@@ -1,0 +1,6 @@
+@BoscoAFH.Feedback_HostAddress = http://localhost:5093
+
+GET {{BoscoAFH.Feedback_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

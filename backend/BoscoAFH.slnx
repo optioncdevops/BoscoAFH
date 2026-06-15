@@ -1,0 +1,25 @@
+<Solution>
+  <Folder Name="/Gateway/">
+    <Project Path="Gateway/BoscoAFH.Gateway/BoscoAFH.Gateway.csproj" />
+  </Folder>
+  <Folder Name="/Infrastructure/">
+    <Project Path="Infrastructure/BoscoAFH.Master.Infrastructure/BoscoAFH.MasterInfrastructure.csproj" />
+    <Project Path="Infrastructure/BoscoAFH.Post.Infrastructure/BoscoAFH.PostInfrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Microservices/">
+    <Project Path="Microservices/BoscoAFH.Auth/BoscoAFH.Auth.csproj" />
+    <Project Path="Microservices/BoscoAFH.Feedback/BoscoAFH.Feedback.csproj" />
+    <Project Path="Microservices/BoscoAFH.Master/BoscoAFH.Master.csproj" />
+  </Folder>
+  <Folder Name="/Platform/">
+    <Project Path="Platform/BoscoAFH.Base/BoscoAFH.Base.csproj" />
+    <Project Path="Platform/BoscoAFH.Common/BoscoAFH.Common.csproj" />
+    <Project Path="Platform/BoscoAFH.CommonService/BoscoAFH.CommonService.csproj" />
+    <Project Path="Platform/BoscoAFH.DBEngine/BoscoAFH.DBEngine.csproj" />
+    <Project Path="Platform/BoscoAFH.Entities/BoscoAFH.Entities.csproj" />
+  </Folder>
+  <Folder Name="/Service/">
+    <Project Path="Service/MasterService/MasterService.csproj" />
+    <Project Path="Service/PostService/PostService.csproj" />
+  </Folder>
+</Solution>

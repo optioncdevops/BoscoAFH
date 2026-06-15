@@ -1,0 +1,6 @@
+@BoscoAFH.Master_HostAddress = http://localhost:5222
+
+GET {{BoscoAFH.Master_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

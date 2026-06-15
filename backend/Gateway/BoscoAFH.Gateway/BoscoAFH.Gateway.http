@@ -1,0 +1,6 @@
+@BoscoAFH.Gateway_HostAddress = http://localhost:5217
+
+GET {{BoscoAFH.Gateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
