@@ -19,7 +19,7 @@
     <Project Path="Platform/BoscoAFH.Entities/BoscoAFH.Entities.csproj" />
   </Folder>
   <Folder Name="/Service/">
-    <Project Path="Service/MasterService/MasterService.csproj" />
-    <Project Path="Service/PostService/PostService.csproj" />
+    <Project Path="Service/MasterService/BoscoAFH.MasterService.csproj" />
+    <Project Path="Service/PostService/BoscoAFH.PostService.csproj" />
   </Folder>
 </Solution>

@@ -1,6 +1,6 @@
 ﻿namespace BoscoAFH.CommonService
 {
-    public class Class1
+    public class ImplicitUsings
     {
 
     }
