@@ -79,9 +79,23 @@ namespace BoscoAFH.Common
             /// <summary>
             /// AccessHub Potal
             /// </summary>
-            public const string AccessHub = "AccessHub";
             public const string BoscoAFHAuthDocs = "BoscoAFH.Auth";
             public const string BoscoAFHAuth = "BoscoAFH.Auth";
+
+            /// <summary>
+            /// AccessHub Potal
+            /// </summary>
+            public const string BoscoAFHFeedbackDocs = "BoscoAFH.Feedback";
+            public const string BoscoAFHFeedback = "BoscoAFH.Feedback";
+
+            /// <summary>
+            /// AccessHub Potal
+            /// </summary>
+            public const string BoscoAFHMasterDocs = "BoscoAFH.Master";
+            public const string BoscoAFHMaster = "BoscoAFH.Master";
+
+
+
         }
         public static class SMTPText
         {

@@ -1,26 +1,24 @@
-using Microsoft.AspNetCore.Mvc;
+using BoscoAFH.CommonService;
 
 namespace BoscoAFH.Master.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    [ApiExplorerSettings(GroupName = SwaggerModuleDoc.BoscoAFHMaster)]
+    [Authorize]
+    public class WeatherForecastController (IWeatherForecastService weatherForecast) : BaseController
     {
-        private static readonly string[] Summaries =
-        [
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        ];
-
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        /// <summary>
+        /// Retrieves the weather forecast asynchronously.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the weather forecast. <see cref="WeatherForecast"/></returns>
+        /// <response code="200">Weather forecast found</response>
+        /// <response code="204">No weather forecast found.</response>
+        [HttpGet]
+        [ActionName(CommonActionName.Common_API.getWeatherForecast)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)] 
+        public async Task<IActionResult> GetAsync()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return ApiResultArgs(await weatherForecast.GetSummaries(), APIHttpType.HttpPost);
         }
     }
 }

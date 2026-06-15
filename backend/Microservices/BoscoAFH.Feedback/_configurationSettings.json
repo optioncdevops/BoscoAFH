@@ -1,0 +1,23 @@
+{
+  "SMTPMailConfig": {
+    "SendMailFlag": "1",
+    "SMTPServer": "smtp.gmail.com",
+    "SMTPPort": "587",
+    "DisplayName": "OptionC",
+    "MUserName": "levinjose6371@gmail.com",
+    "MPassword": "yitnkxshdijrngxe",
+    "IsSSLEnabled": "1",
+    "ContactUsMailId": "",
+    "CCMailId": "",
+    "LoginURL": "https://allnewoptionc.com/find-school"
+  },
+  "ApplicationFilePath": {
+    "Doc_BasePath": "D:\\Project\\OptionC_React_SRC\\BackEnd\\OptionCMicroservice\\OptionC.Acutis\\wwwroot\\Acutis",
+    //"Doc_BasePath": "D:\\Project\\OptionC_React_Conversion1\\BackEnd\\OptionCMicroservice\\OptionC.Acutis\\wwwroot\\"
+  },
+  "AppSettings": {
+    "ExpTrainingSchedule": "Documentation\\ImportTemplate\\Training_Schedule_New.xlsx",
+    "DocBaseURL": "https://localhost:5009/Acutis/"
+  }
+}
+
