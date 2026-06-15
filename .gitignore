@@ -32,3 +32,4 @@
 /backend/Service/MasterService/obj
 /backend/Service/PostService/bin/Debug/net10.0
 /backend/Service/PostService/obj
+/backend/Microservices/BoscoAFH.Auth/serilogs
