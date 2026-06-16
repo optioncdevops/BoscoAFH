@@ -38,3 +38,5 @@
 /backend/.vs/BoscoAFH.slnx/DesignTimeBuild
 /backend/Infrastructure/BoscoAFH.FeedbackInfrastructure/obj
 /backend/Service/BoscoAFH.FeedbackService/obj
+/backend/Infrastructure/BoscoAFH.FeedbackInfrastructure/bin/Debug/net10.0
+/backend/Service/BoscoAFH.FeedbackService/bin/Debug/net10.0
