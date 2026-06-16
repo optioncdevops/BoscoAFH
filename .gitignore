@@ -36,3 +36,5 @@
 /backend/.vs/BoscoAFH.slnx/FileContentIndex
 /backend/BoscoAFH/.vs/ProjectEvaluation
 /backend/.vs/BoscoAFH.slnx/DesignTimeBuild
+/backend/Infrastructure/BoscoAFH.FeedbackInfrastructure/obj
+/backend/Service/BoscoAFH.FeedbackService/obj
