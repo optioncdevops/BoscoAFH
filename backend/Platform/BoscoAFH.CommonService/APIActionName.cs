@@ -20,5 +20,14 @@ namespace BoscoAFH.CommonService
             public const string updateRoleStatus = nameof(updateRoleStatus);
             public const string getRoleDropdownAsync = nameof(getRoleDropdownAsync);
         }
+
+        public static class API_User
+        {
+            public const string saveUserAsync = nameof(saveUserAsync);
+            public const string updateUserAsync = nameof(updateUserAsync);
+            public const string getUserAsync = nameof(getUserAsync);
+            public const string getUserbyIdAsync = nameof(getUserbyIdAsync);
+            public const string deleteUserAsync = nameof(deleteUserAsync);
+        }
     }
 }

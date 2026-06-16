@@ -1,6 +1,9 @@
+using BoscoAFH.Base;
 using BoscoAFH.CommonService;
 using BoscoAFH.Entities.Data;
+using BoscoAFH.Entities.Models;
 using BoscoAFH.MasterInfrastructure.Interfaces;
+using BoscoAFH.MasterInfrastructure.Models.Input;
 using BoscoAFH.MasterInfrastructure.Repositorys;
 using BoscoAFH.MasterService.Interfaces;
 using BoscoAFH.MasterService.Service;
@@ -22,10 +25,8 @@ namespace BoscoAFH.Master
             services.AddAutoMapper(cfg =>
             {
                 // Add specific type mappings using the generic profile
-                // cfg.AddProfile(new GenericMappingProfile<UserEmail, UserDetailDTO>());
-                //cfg.AddProfile(new GenericMappingProfile<UserRole, RoleDTO>());
-
-                // You can keep adding profiles for other mappings
+                cfg.AddProfile(new GenericMappingProfile<Role, RoleDTO>());
+                cfg.AddProfile(new GenericMappingProfile<User, UserDTO>());
             });
             return services;
         }
@@ -55,6 +56,7 @@ namespace BoscoAFH.Master
             // Services
             services.AddTransient<IWeatherForecastService, WeatherForecastService>();
             services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<IUserService, UserService>();
 
             return services;
         }
