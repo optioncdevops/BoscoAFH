@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\BoscoAFH.Master.Infrastructure\BoscoAFH.MasterInfrastructure.csproj" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Service\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\BoscoAFH.FeedbackInfrastructure\BoscoAFH.FeedbackInfrastructure.csproj" />
     <ProjectReference Include="..\..\Platform\BoscoAFH.Common\BoscoAFH.Common.csproj" />
   </ItemGroup>
 

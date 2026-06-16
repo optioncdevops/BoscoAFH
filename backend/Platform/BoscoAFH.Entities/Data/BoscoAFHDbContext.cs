@@ -12,6 +12,8 @@ public partial class BoscoAFHDbContext : DbContext
     {
     }
 
+    public virtual DbSet<Department> Departments { get; set; }
+
     public virtual DbSet<ModuleRight> ModuleRights { get; set; }
 
     public virtual DbSet<ModulesAndFeature> ModulesAndFeatures { get; set; }
@@ -22,6 +24,13 @@ public partial class BoscoAFHDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Department>(entity =>
+        {
+            entity.HasKey(e => e.DepartmentId).HasName("departments_pkey");
+
+            entity.Property(e => e.CreatedOn).HasDefaultValueSql("CURRENT_TIMESTAMP");
+        });
+
         modelBuilder.Entity<ModuleRight>(entity =>
         {
             entity.HasKey(e => e.RightsId).HasName("module_rights_pkey");

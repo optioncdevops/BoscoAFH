@@ -3,8 +3,8 @@
     <Project Path="Gateway/BoscoAFH.Gateway/BoscoAFH.Gateway.csproj" />
   </Folder>
   <Folder Name="/Infrastructure/">
+    <Project Path="Infrastructure/BoscoAFH.FeedbackInfrastructure/BoscoAFH.FeedbackInfrastructure.csproj" Id="89417681-5e80-4e19-bf85-b497b6637d1e" />
     <Project Path="Infrastructure/BoscoAFH.Master.Infrastructure/BoscoAFH.MasterInfrastructure.csproj" />
-    <Project Path="Infrastructure/BoscoAFH.Post.Infrastructure/BoscoAFH.PostInfrastructure.csproj" />
   </Folder>
   <Folder Name="/Microservices/">
     <Project Path="Microservices/BoscoAFH.Auth/BoscoAFH.Auth.csproj" />
@@ -19,7 +19,7 @@
     <Project Path="Platform/BoscoAFH.Entities/BoscoAFH.Entities.csproj" />
   </Folder>
   <Folder Name="/Service/">
+    <Project Path="Service/BoscoAFH.FeedbackService/BoscoAFH.FeedbackService.csproj" Id="758117d9-1273-4ce1-bd5c-8384434f403f" />
     <Project Path="Service/MasterService/BoscoAFH.MasterService.csproj" />
-    <Project Path="Service/PostService/BoscoAFH.PostService.csproj" />
   </Folder>
 </Solution>

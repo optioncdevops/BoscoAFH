@@ -32,8 +32,9 @@ namespace BoscoAFH.Common
 
         public static class AuditTableName
         {
-            public const string RebarPro = "rebarpro";
-            public const string AccessHub = "accesshub";
+            public const string Feedback = "feedback";
+            public const string Master = "master";
+            public const string Auth = "auth";
         }
 
         public static class ExcelSettings

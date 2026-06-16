@@ -36,4 +36,5 @@ public partial class Role
 
     [InverseProperty("Role")]
     public virtual ICollection<ModuleRight> ModuleRights { get; set; } = new List<ModuleRight>();
+    public int ModifiedById { get; set; }
 }

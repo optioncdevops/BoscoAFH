@@ -1,4 +1,9 @@
 using BoscoAFH.CommonService;
+using BoscoAFH.Entities.Data;
+using BoscoAFH.MasterInfrastructure.Interfaces;
+using BoscoAFH.MasterInfrastructure.Repositorys;
+using BoscoAFH.MasterService.Interfaces;
+using BoscoAFH.MasterService.Service;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -33,9 +38,8 @@ namespace BoscoAFH.Master
             // Take the Token Values
 
 
-            //services.AddScoped<DbContext, AccessHubDbContext>();
-            //services.AddScoped(typeof(IDBRepository<>), typeof(DBRepository<>));
-
+            services.AddScoped<DbContext, BoscoAFHDbContext>();
+          
             services.AddControllers();
 
             // To access the files in web Browsers
@@ -46,9 +50,11 @@ namespace BoscoAFH.Master
              services.AddTransient<IJwtTokenGenerator, JwtTokenGenerator>();
 
             // Repository
-            services.AddTransient<IWeatherForecastService, WeatherForecastService>();
+            services.AddScoped(typeof(IDBRepository<>), typeof(DBRepository<>));
 
-            
+            // Services
+            services.AddTransient<IWeatherForecastService, WeatherForecastService>();
+            services.AddTransient<IRoleService, RoleService>();
 
             return services;
         }
