@@ -43,6 +43,9 @@ public partial class User
     [Column("is_deleted")]
     public bool IsDeleted { get; set; }
 
+    [Column("role_id")]
+    public long? RoleId { get; set; }
+
     [InverseProperty("User")]
     public virtual ICollection<ModuleRight> ModuleRights { get; set; } = new List<ModuleRight>();
 }

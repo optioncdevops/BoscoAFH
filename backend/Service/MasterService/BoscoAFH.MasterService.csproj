@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Infrastructure\BoscoAFH.Master.Infrastructure\BoscoAFH.MasterInfrastructure.csproj" />
-    <ProjectReference Include="..\..\Platform\BoscoAFH.Common\BoscoAFH.Common.csproj" />
   </ItemGroup>
 
 </Project>

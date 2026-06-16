@@ -44,9 +44,6 @@ namespace BoscoAFH.MasterInfrastructure.Models.Input
         /// </summary>
         public bool IsActive { get; set; }
 
-        /// <summary>
-        /// Status: deleted or not (TRUE = deleted, FALSE = not deleted)
-        /// </summary>
-        public bool IsDeleted { get; set; } = false;
+         
     }
 }

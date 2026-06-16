@@ -38,6 +38,10 @@ namespace BoscoAFH.MasterInfrastructure.Models.Input
         /// Status: deleted or not (TRUE = deleted, FALSE = not deleted).
         /// </summary>
         public bool IsDeleted { get; set; } = false;
+        /// <summary>
+        /// Status: referenced or not (TRUE = referenced, FALSE = not referenced).
+        /// </summary>
+        public bool IsReferenced { get; set; } = false;
 
          
     }

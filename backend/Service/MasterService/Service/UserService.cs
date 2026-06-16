@@ -41,10 +41,8 @@ namespace BoscoAFH.MasterService.Service
                         UserId = user.UserId,
                         UserName = user.UserName.Trim(),
                         FullName = user.FullName.Trim(),
-                        Email = user.Email.Trim(),
                         MobileNo = user.MobileNo != null ? user.MobileNo.Trim() : null,
                         IsActive = user.IsActive,
-                        IsDeleted = user.IsDeleted
                     }))
                     .AsQueryable()
                     .AsNoTracking()
@@ -82,7 +80,6 @@ namespace BoscoAFH.MasterService.Service
                         Email = user.Email,
                         MobileNo = user.MobileNo,
                         IsActive = user.IsActive,
-                        IsDeleted = user.IsDeleted
                     };
                     resultArgs.ResultData = mappedUser;
                 }
@@ -201,7 +198,8 @@ namespace BoscoAFH.MasterService.Service
                 {
                     return new ResultArgs { StatusCode = ErrorCodes.NoRecordFound, StatusMessage = ErrorMessages.NoRecordFound };
                 }
-
+                user.Email = user.Email + "_" + user.UserId.ToString();
+                user.UserName = user.UserName + "_" + user.UserId.ToString();
                 user.IsDeleted = true;
                 int rowsAffected = await _dbRepository.UpdateAsync(user);
                 return new ResultArgs

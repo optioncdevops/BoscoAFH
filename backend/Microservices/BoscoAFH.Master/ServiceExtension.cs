@@ -52,6 +52,8 @@ namespace BoscoAFH.Master
 
             // Repository
             services.AddScoped(typeof(IDBRepository<>), typeof(DBRepository<>));
+            services.AddScoped(typeof(IRoleRepository), typeof(RoleRepository));
+
 
             // Services
             services.AddTransient<IWeatherForecastService, WeatherForecastService>();

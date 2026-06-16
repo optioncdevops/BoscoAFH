@@ -13,16 +13,9 @@ namespace BoscoAFH.MasterService.Service
     /// <summary>
     /// Service class for managing roles and permissions.
     /// </summary>
-    public class RoleService(IDBRepository<Role> dbRepository, IMapper mapper, ILogger<RoleService> logger) : IRoleService
+    public class RoleService(IDBRepository<Role> _dbRepository, IRoleRepository _roleRepository, IMapper _mapper, ILogger<RoleService> _logger) : IRoleService
     {
-        #region Properties
-
-        private readonly IDBRepository<Role> _dbRepository = dbRepository ?? throw new ArgumentNullException(nameof(dbRepository));
-        private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-        private readonly ILogger<RoleService> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        //private readonly IRoleRepository _roleRepository = roleRepository ?? throw new ArgumentNullException(nameof(roleRepository));
-
-        #endregion
+       
 
         #region Get Methods
 
@@ -34,20 +27,7 @@ namespace BoscoAFH.MasterService.Service
             try
             {
 
-                var data = (await _dbRepository.GetAllAsync(
-                   role => new RoleDTO
-                   {
-                       RoleId = role.RoleId,
-                       RoleName = role.RoleName.Trim(),
-                       Description = role.Description.Trim(),
-                       IsActive = role.IsActive,
-                       IsDeleted = role.IsDeleted
-                   }))
-            .AsQueryable()
-            .AsNoTracking()
-            .OrderBy(a => a.RoleName)
-            .ToList();
-                 
+                var data = await _roleRepository.GetRolesAsync();
 
                 return data != null ?
                     new ResultArgs { StatusCode = ErrorCodes.Success, StatusMessage = ErrorMessages.Success, ResultData = data }
@@ -157,7 +137,6 @@ namespace BoscoAFH.MasterService.Service
                 }
 
                 role.IsDeleted = true;
-                role.ModifiedById = 0;
                 int rowsAffected = await _dbRepository.UpdateAsync(role);
                 return new ResultArgs { StatusCode = rowsAffected > 0 ? ErrorCodes.Success : ErrorCodes.Failed, StatusMessage = rowsAffected > 0 ? ErrorMessages.DeleteSuccess : ErrorMessages.DeleteFailed };
             }
