@@ -7,6 +7,8 @@
  *
  * Purpose          : To have Data base optionnal methods that handles insert, update, delete and get and get all stored procedures data
  ***********************************************************************************************************/
+using Npgsql;
+
 namespace BoscoAFH.DBEngine
 {
    
@@ -39,12 +41,15 @@ namespace BoscoAFH.DBEngine
 
             public IDbConnection Connection
             {
-                get
-                {
-                    var sqlconnection = new SqlConnection(_configuration.GetConnectionString("ConnString"));
-                    return sqlconnection;
-                }
+            get
+            {
+                var connection = new NpgsqlConnection(
+                    _configuration.GetConnectionString("ConnString")
+                );
+
+                return connection;
             }
+        }
 
             public async Task<T> QueryFirstOrDefaultAsync<T>(string sql, object? parameters = null, CommandType commandType = CommandType.Text)
             {

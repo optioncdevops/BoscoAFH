@@ -1,5 +1,6 @@
 using BoscoAFH.Base;
 using BoscoAFH.CommonService;
+using BoscoAFH.DBEngine;
 using BoscoAFH.Entities.Data;
 using BoscoAFH.Entities.Models;
 using BoscoAFH.MasterInfrastructure.Interfaces;
@@ -40,25 +41,30 @@ namespace BoscoAFH.Master
 
 
             services.AddScoped<DbContext, BoscoAFHDbContext>();
-          
+
+
             services.AddControllers();
 
             // To access the files in web Browsers
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             // Sql Server Repository
-            //services.AddScoped<IDapperHandler, DapperHandler>();
-             services.AddTransient<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddScoped<IDapperHandler, DapperHandler>();
+            services.AddTransient<IJwtTokenGenerator, JwtTokenGenerator>();
 
             // Repository
             services.AddScoped(typeof(IDBRepository<>), typeof(DBRepository<>));
             services.AddScoped(typeof(IRoleRepository), typeof(RoleRepository));
+            services.AddScoped(typeof(ICategoryRepository), typeof(CategoryRepository)); 
+
 
 
             // Services
             services.AddTransient<IWeatherForecastService, WeatherForecastService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+
 
             return services;
         }
