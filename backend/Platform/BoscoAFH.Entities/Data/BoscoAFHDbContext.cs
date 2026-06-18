@@ -12,11 +12,17 @@ public partial class BoscoAFHDbContext : DbContext
     {
     }
 
+    public virtual DbSet<Category> Categories { get; set; }
+
     public virtual DbSet<Department> Departments { get; set; }
 
     public virtual DbSet<ModuleRight> ModuleRights { get; set; }
 
     public virtual DbSet<ModulesAndFeature> ModulesAndFeatures { get; set; }
+
+    public virtual DbSet<QuestionBank> QuestionBanks { get; set; }
+
+    public virtual DbSet<QuestionOption> QuestionOptions { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
 
@@ -24,6 +30,13 @@ public partial class BoscoAFHDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Category>(entity =>
+        {
+            entity.HasKey(e => e.CategoryId).HasName("categories_pkey");
+
+            entity.Property(e => e.CreatedOn).HasDefaultValueSql("CURRENT_TIMESTAMP");
+        });
+
         modelBuilder.Entity<Department>(entity =>
         {
             entity.HasKey(e => e.DepartmentId).HasName("departments_pkey");
@@ -59,6 +72,30 @@ public partial class BoscoAFHDbContext : DbContext
             entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("fk_modules_parent");
+        });
+
+        modelBuilder.Entity<QuestionBank>(entity =>
+        {
+            entity.HasKey(e => e.QuestionId).HasName("question_bank_pkey");
+
+            entity.Property(e => e.CreatedOn).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.IsActive).HasDefaultValue(true);
+
+            entity.HasOne(d => d.Category).WithMany(p => p.QuestionBanks)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_question_category");
+        });
+
+        modelBuilder.Entity<QuestionOption>(entity =>
+        {
+            entity.HasKey(e => e.OptionId).HasName("question_options_pkey");
+
+            entity.Property(e => e.CreatedOn).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.IsCorrect).HasDefaultValue(false);
+
+            entity.HasOne(d => d.Question).WithMany(p => p.QuestionOptions)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_option_question");
         });
 
         modelBuilder.Entity<Role>(entity =>
