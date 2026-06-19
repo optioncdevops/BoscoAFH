@@ -1,6 +1,7 @@
 using BoscoAFH.Common;
 using BoscoAFH.CommonService;
 using Microsoft.Extensions.DependencyInjection;
+using System.IdentityModel.Tokens.Jwt;
 using UAParser;
 
 namespace BoscoAFH.Base.Middlewares
@@ -31,16 +32,24 @@ namespace BoscoAFH.Base.Middlewares
 
             // Validate and extract user ID
             var userIdClaim = user.FindFirstValue(ClaimTypes.NameIdentifier);
-            var nameIdClaims = user.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).ToList();
-            var roleClaim = nameIdClaims.Count > 1 ? nameIdClaims[1].Value : null;
+            long userId = 0;
+            bool isValidUserId = false;
 
-            if (string.IsNullOrEmpty(userIdClaim) || !long.TryParse(CommonMethods.DecryptValue(userIdClaim), out long userId))
+
+            var ssoUserIdClaim = user.FindFirstValue(Constant.SessionField.UserId);
+            if (!string.IsNullOrEmpty(ssoUserIdClaim))
+            {
+                isValidUserId = long.TryParse(ssoUserIdClaim, out userId);
+            }
+
+
+            if (!isValidUserId)
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                 await context.Response.WriteAsync("Unauthorized: Invalid User ID");
                 return;
             }
-           
+
             // Set user details in the current user service
             currentUserService.UserId = userId;
             currentUserService.CreateBaseDTO.CreatedById = userId;
@@ -49,6 +58,7 @@ namespace BoscoAFH.Base.Middlewares
             currentUserService.ClientIPAddress = context.Connection.RemoteIpAddress?.ToString() ?? "Unknown";
             currentUserService.DeviceType = clientInfo.Device.Family ?? "Unknown";
             currentUserService.BrowserName = clientInfo.UA.Family ?? "Unknown";
+            currentUserService.UserName = user.FindFirstValue(Constant.SessionField.FullName) ?? string.Empty;
 
             await _next(context);
         }

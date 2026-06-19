@@ -14,26 +14,29 @@ namespace BoscoAFH.Base
         string GenerateRefreshToken();
     }
 
-    public class JwtTokenGenerator(IOptions<JWTSetting> jwtSetting): IJwtTokenGenerator
+    public class JwtTokenGenerator(IOptions<JWTSetting> jwtSetting) : IJwtTokenGenerator
     {
         public string GenerateToken(UserDetailDTO userDetail)
         {
             var tokenhandler = new JwtSecurityTokenHandler();
             var tokenkey = Encoding.UTF8.GetBytes(jwtSetting.Value.SecurityKey);
-
-            var claimsList = new List<Claim>
+            var claimsDict1 = new Dictionary<string, object>
             {
-                new(JwtRegisteredClaimNames.Email, CommonMethods.EncryptValue(userDetail.Email)),
-                new(JwtRegisteredClaimNames.Sub, CommonMethods.EncryptValue(userDetail.UserId.ToString())), // Stored the UserId
-                new(JwtRegisteredClaimNames.Name, CommonMethods.EncryptValue(userDetail.FullName)),
-
+                { Constant.SessionField.RoleId, CommonMethods.EncryptValue(userDetail.RoleId.ToString()) },
+                { Constant.SessionField.UserId, CommonMethods.EncryptValue(userDetail.UserId.ToString()) },
+                { Constant.SessionField.FullName, CommonMethods.EncryptValue(userDetail.FullName.ToString()) }
             };
-
+            var claimsDict = new Dictionary<string, object>
+            {
+                { Constant.SessionField.RoleId, (userDetail.RoleId.ToString()) },
+                { Constant.SessionField.UserId, (userDetail.UserId.ToString()) },
+                { Constant.SessionField.FullName,  (userDetail.FullName.ToString()) }
+            };
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Audience = jwtSetting.Value.Audience,
                 Issuer = jwtSetting.Value.Issuer,
-                Subject = new ClaimsIdentity(claimsList),
+                Claims = claimsDict,
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenkey), SecurityAlgorithms.HmacSha256)
             };
@@ -44,6 +47,6 @@ namespace BoscoAFH.Base
         public string GenerateRefreshToken()
         {
             return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
-        } 
+        }
     }
 }

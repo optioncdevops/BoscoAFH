@@ -16,6 +16,13 @@ namespace BoscoAFH.Common
             public const string VersionV1 = "1";
             public const string VersionV2 = "2";
         }
+        public class SessionField
+        {
+            public const string UserId = "UserId";
+            public const string RoleId = "RoleId";
+            public const string FullName = "FullName";
+            public const string Email = "Email";
+        }
 
         public static class DBConectionName
         {

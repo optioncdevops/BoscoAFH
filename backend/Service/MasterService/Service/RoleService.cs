@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BoscoAFH.Common;
+using BoscoAFH.CommonService;
 using BoscoAFH.Entities.Models;
 using BoscoAFH.MasterInfrastructure.Interfaces;
 using BoscoAFH.MasterInfrastructure.Models.Input;
@@ -13,7 +14,7 @@ namespace BoscoAFH.MasterService.Service
     /// <summary>
     /// Service class for managing roles and permissions.
     /// </summary>
-    public class RoleService(IDBRepository<Role> _dbRepository, IRoleRepository _roleRepository, IMapper _mapper, ILogger<RoleService> _logger) : IRoleService
+    public class RoleService(IDBRepository<Role> _dbRepository, IRoleRepository _roleRepository, ICurrentUserService _userService, IMapper _mapper, ILogger<RoleService> _logger) : IRoleService
     {
        
 
@@ -26,7 +27,7 @@ namespace BoscoAFH.MasterService.Service
         {
             try
             {
-
+                int id = _userService.RoleId;
                 var data = await _roleRepository.GetRolesAsync();
 
                 return data != null ?
@@ -137,6 +138,7 @@ namespace BoscoAFH.MasterService.Service
                 }
 
                 role.IsDeleted = true;
+                //role.RoleId = _userService.RoleId;
                 int rowsAffected = await _dbRepository.UpdateAsync(role);
                 return new ResultArgs { StatusCode = rowsAffected > 0 ? ErrorCodes.Success : ErrorCodes.Failed, StatusMessage = rowsAffected > 0 ? ErrorMessages.DeleteSuccess : ErrorMessages.DeleteFailed };
             }

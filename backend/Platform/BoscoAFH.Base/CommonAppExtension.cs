@@ -15,7 +15,7 @@ namespace BoscoAFH.Base
         public static IApplicationBuilder UseCommonAppSetup(this IApplicationBuilder app, string swaggerTitle, SwaggerGenOptions swaggerGenOptions)
         {
             // Get the available Swagger documents from the SwaggerGen service
-
+            app.UseRouting();
             app.UseSwagger();
             // Serve static files for Swagger UI (CSS, JS)
             app.UseStaticFiles();
@@ -51,9 +51,9 @@ namespace BoscoAFH.Base
 
             // Enable CORS to allow requests from any origin
             // Use CORS
-            // app.UseCors("AllowSpecificOrigin");
+             app.UseCors("AllowSpecificOrigin");
 
-            app.UseCors("AllowFrontend");
+           // app.UseCors("AllowFrontend");
 
             // Redirect HTTP requests to HTTPS (non-Development only; local SSO uses http://localhost:5001)
             var env = app.ApplicationServices.GetRequiredService<IWebHostEnvironment>();

@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Platform\BoscoAFH.Common\BoscoAFH.Common.csproj" />
+    <ProjectReference Include="..\..\Platform\BoscoAFH.CommonService\BoscoAFH.CommonService.csproj" />
     <ProjectReference Include="..\..\Platform\BoscoAFH.DBEngine\BoscoAFH.DBEngine.csproj" />
     <ProjectReference Include="..\..\Platform\BoscoAFH.Entities\BoscoAFH.Entities.csproj" />
   </ItemGroup>

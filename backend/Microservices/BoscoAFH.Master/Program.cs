@@ -1,4 +1,4 @@
-using BoscoAFH.Base.Extension;
+
 using BoscoAFH.Entities.Data;
 using BoscoAFH.Master;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +13,7 @@ var builder = WebApplication.CreateBuilder(args).UseSecureKestrel();
 // Load configuration using the helper
 builder.Configuration.AddConfiguration(ConfigurationLoader.LoadConfiguration());
 
-
 builder.Services.AddDbContext<BoscoAFHDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("ConnString")));
-
 
 builder.WebHost.ConfigureKestrel(options =>
 {
@@ -50,8 +48,8 @@ builder.Services.AddSwaggerGenSetup(SwaggerModuleDoc.BoscoAFHMasterDocs);
 builder.Services.DisableAuthenticationPolicy(builder.Environment);
 
 // Use empty fallback to satisfy nullable flow; extension handles invalid values.
-var accessHubAuditConnection = builder.Configuration.GetConnectionString("AuditLogDB") ?? string.Empty;
-builder.Host.AddSerilogConfiguration(accessHubAuditConnection, AuditTableName.Master);
+//var accessHubAuditConnection = builder.Configuration.GetConnectionString("AuditLogDB") ?? string.Empty;
+//builder.Host.AddSerilogConfiguration(accessHubAuditConnection, AuditTableName.AccessHub);
 
 builder.Services.AddEndpointsApiExplorer();
 

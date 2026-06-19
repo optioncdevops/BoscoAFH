@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using System.Globalization;
@@ -21,13 +22,13 @@ public static class ServiceExtension
         if (env.IsDevelopment())
         {
             //Disable authentication and authorization this only fro development mode
-             services.RemoveAll<IPolicyEvaluator>();
+            services.RemoveAll<IPolicyEvaluator>();
             services.AddSingleton<IPolicyEvaluator, DisableAuthenticationPolicyEvaluator>();
         }
         else
         {
-            services.RemoveAll<IPolicyEvaluator>();
-            services.AddSingleton<IPolicyEvaluator, DisableAuthenticationPolicyEvaluator>();
+            //services.RemoveAll<IPolicyEvaluator>();
+            //services.AddSingleton<IPolicyEvaluator, DisableAuthenticationPolicyEvaluator>();
         }
         return services;
     }
@@ -168,64 +169,28 @@ public static class ServiceExtension
         // Configure custom certificate-based services
         //services.ConfigureLocationCounterBasedServices(configuration);
 
-        // Configure CORS
-        //services.AddCors(options =>
-        //{
-        //    options.AddPolicy("AllowSpecificOrigins", builder =>
-        //    {
-        //        if (allowedOrigins.Contains("*"))
-        //        {
-        //            builder.AllowAnyOrigin();
-        //        }
-        //        else
-        //        {
-        //            builder.WithOrigins(allowedOrigins);
-        //        }
-
-        //        builder.AllowAnyMethod()
-        //               .AllowAnyHeader();
-        //    });
-
-        //});
-
-        string hosts = configuration.GetSection("HostsAllowed")?.Value?.ToString() ?? string.Empty;
-
         //Configure CORS
+
         services.AddCors(options =>
         {
-            if (!string.IsNullOrEmpty(hosts))
+            options.AddPolicy("AllowSpecificOrigins", builder =>
             {
-                options.AddPolicy("AllowFrontend", policy =>
+                if (allowedOrigins.Contains("*"))
                 {
-                    policy.WithOrigins(hosts.Split(","))
-                          .AllowAnyHeader()
-                          .AllowAnyMethod()
-                          .AllowCredentials();  // Needed for SignalR with specific origins
-                });
-            }
-            else
-            {
-                options.AddPolicy("AllowFrontend", policy =>
+                    builder.SetIsOriginAllowed(origin => true);
+                }
+                else
                 {
-                    policy.AllowAnyOrigin()
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
-                });
-            }
-        });
+                    builder.WithOrigins(allowedOrigins);
+                }
 
-        services.AddAuthorization(options =>
-        {
-            options.AddPolicy("mnuUserRole", policy =>
-        policy.RequireAssertion(context =>
-            context.User.HasClaim(c => c.Type == "Permission" && !string.IsNullOrWhiteSpace(c.Value))
-        )
-    );
+                builder.AllowAnyMethod()
+                       .AllowAnyHeader()
+                       .AllowCredentials();
+            });
         });
-
         // Add controllers
         services.AddControllers();
-
         return services;
     }
 
