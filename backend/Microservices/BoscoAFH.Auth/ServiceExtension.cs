@@ -1,4 +1,9 @@
 using BoscoAFH.CommonService;
+using BoscoAFH.DBEngine;
+using BoscoAFH.MasterInfrastructure.Interfaces;
+using BoscoAFH.MasterInfrastructure.Repositorys;
+using BoscoAFH.MasterService.Interfaces;
+using BoscoAFH.MasterService.Service;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -42,11 +47,13 @@ namespace BoscoAFH.Auth
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             // Sql Server Repository
-            //services.AddScoped<IDapperHandler, DapperHandler>();
+             services.AddScoped<IDapperHandler, DapperHandler>();
              services.AddTransient<IJwtTokenGenerator, JwtTokenGenerator>();
 
             // Repository
-            services.AddTransient<IWeatherForecastService, WeatherForecastService>();
+            services.AddTransient<IAuthenticateRepository, AuthenticateRepository>();
+
+            services.AddTransient<IAuthenticateService, AuthenticateService>();
 
             
 

@@ -10,7 +10,11 @@ namespace BoscoAFH.CommonService
 
     public static class APIActionName
     {
-        public static class API_Role
+        public static class API_Login
+        {
+            public const string userAuthenticateAsync = nameof(userAuthenticateAsync);
+        }
+            public static class API_Role
         {
             public const string saveRoleAsync = nameof(saveRoleAsync);
             public const string updateRoleAsync = nameof(updateRoleAsync);

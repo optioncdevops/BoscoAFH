@@ -8,23 +8,25 @@ namespace BoscoAFH.Base
 {
     public interface IJwtTokenGenerator
     {
-        string GenerateToken(LoginUserResult userDetail);
+
+        string GenerateToken(UserDetailDTO userDetail);
 
         string GenerateRefreshToken();
     }
 
     public class JwtTokenGenerator(IOptions<JWTSetting> jwtSetting): IJwtTokenGenerator
     {
-        public string GenerateToken(LoginUserResult userDetail)
+        public string GenerateToken(UserDetailDTO userDetail)
         {
             var tokenhandler = new JwtSecurityTokenHandler();
             var tokenkey = Encoding.UTF8.GetBytes(jwtSetting.Value.SecurityKey);
 
             var claimsList = new List<Claim>
             {
-                new(JwtRegisteredClaimNames.Email, CommonMethods.EncryptValue(userDetail.EMail)),
+                new(JwtRegisteredClaimNames.Email, CommonMethods.EncryptValue(userDetail.Email)),
                 new(JwtRegisteredClaimNames.Sub, CommonMethods.EncryptValue(userDetail.UserId.ToString())), // Stored the UserId
                 new(JwtRegisteredClaimNames.Name, CommonMethods.EncryptValue(userDetail.FullName)),
+
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -42,26 +44,6 @@ namespace BoscoAFH.Base
         public string GenerateRefreshToken()
         {
             return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
-        }
-    }
-
-    public class LoginUserResult
-    {
-        public long UserId { get; set; }
-
-        public int? AccessLevel { get; set; }
-        public int? RoleId { get; set; }
-
-        public string? EMail { get; set; }
-
-        public string? FirstName { get; set; }
-
-        public string? LastName { get; set; }
-
-        public string? FullName { get; set; }
-
-
-        public string? LandingURL { get; set; }
-        public string Token { get; set; }
+        } 
     }
 }
